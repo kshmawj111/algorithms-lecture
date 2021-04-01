@@ -8,6 +8,7 @@
 """
 from time import time, time_ns
 from sorting.quick_sort import quick_sort
+from sorting.merge_sort import merge_sort
 import pandas as pd
 from copy import copy
 
@@ -20,9 +21,16 @@ class Recorder(object):
     def execute(self, F, original_data, *args, **kwargs):
         c_data = copy(original_data)
         self.initialize_F_info(F)
+
+        new_arg = [c_data]
+        for item in args:
+            for i in item:
+                new_arg.append(i)
+
         s = time()
         s_n = time_ns()
-        F(c_data, *args, **kwargs)
+
+        F(*new_arg, **kwargs)
         end = time()
         end_n = time_ns()
 
@@ -54,7 +62,7 @@ if __name__ == '__main__':
     a = [5,8,4,6,2,3,1,1,2,5,6,8,6,4,5,8,9,6,2,1,3,2,5,6,2,3,4,5,4,6,4]
     recorder = Recorder()
     args = [0, len(a)-1]
-    recorder.execute(quick_sort, a, *args)
+    recorder.execute(merge_sort, a, [0, len(a) - 1])
     record = recorder.get_record()
 
     print(record)
