@@ -22,6 +22,7 @@ class Recorder(object):
         c_data = copy(original_data)
         self.initialize_F_info(F)
 
+        # unpack arguments from args and append them to new argument with copied data
         new_arg = [c_data]
         for item in args:
             for i in item:
@@ -31,6 +32,7 @@ class Recorder(object):
         s_n = time_ns()
 
         F(*new_arg, **kwargs)
+
         end = time()
         end_n = time_ns()
 
@@ -62,9 +64,8 @@ if __name__ == '__main__':
     a = [5,8,4,6,2,3,1,1,2,5,6,8,6,4,5,8,9,6,2,1,3,2,5,6,2,3,4,5,4,6,4]
     recorder = Recorder()
     args = [0, len(a)-1]
-    recorder.execute(merge_sort, a, [0, len(a) - 1])
+    recorder.execute(quick_sort, a, [0, len(a) - 1])
     record = recorder.get_record()
 
-    print(record)
     df = pd.DataFrame.from_dict(record, orient='index')
     print(df)
