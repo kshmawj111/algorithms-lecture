@@ -9,6 +9,7 @@
 from time import time, time_ns
 from sorting.quick_sort import quick_sort
 import pandas as pd
+from copy import copy
 
 
 class Recorder(object):
@@ -16,12 +17,12 @@ class Recorder(object):
         self.record = {}
 
     # method for executing a specific function given as F
-    def execute(self, F, *args, **kwargs):
+    def execute(self, F, original_data, *args, **kwargs):
+        c_data = copy(original_data)
         self.initialize_F_info(F)
-
         s = time()
         s_n = time_ns()
-        F(*args, **kwargs)
+        F(c_data, *args, **kwargs)
         end = time()
         end_n = time_ns()
 
@@ -47,8 +48,8 @@ class Recorder(object):
 if __name__ == '__main__':
     a = [5,8,4,6,2,3,1,1,2,5,6,8,6,4,5,8,9,6,2,1,3,2,5,6,2,3,4,5,4,6,4]
     recorder = Recorder()
-    args = [a, 0, len(a)-1]
-    recorder.execute(quick_sort, *args)
+    args = [0, len(a)-1]
+    recorder.execute(quick_sort, a, *args)
     record = recorder.get_times()
 
     print(record)
