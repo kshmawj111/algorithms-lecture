@@ -40,7 +40,7 @@ def quick_sort_3way(l, p, r):
     return l
 
 
-def partition(l, p, r):
+def partition(l, p, r, verbose=False):
     global num_iter
     pivot = l[(p+r)//2]
     lp, rp = p, r
@@ -57,12 +57,13 @@ def partition(l, p, r):
             i += 1
 
         elif l[i] > pivot:
-            a[rp], a[i] = a[i], a[rp]
+            l[rp], l[i] =l[i], l[rp]
             rp -= 1
 
-    print(l, end=' ')
-    print(f'lp: {lp}, rp: {rp}', end=' ')
-    print(f'pivot: {pivot}')
+    if verbose:
+        print(l, end=' ')
+        print(f'lp: {lp}, rp: {rp}', end=' ')
+        print(f'pivot: {pivot}')
     return lp, rp # return pivot's index
 
 
