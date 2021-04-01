@@ -13,6 +13,7 @@ from shuffle import shuffle
 
 num_iter = 0
 
+
 def quick_select(l, p, r, k):
     answer = None
     li, ri = partition(l, p, r)
