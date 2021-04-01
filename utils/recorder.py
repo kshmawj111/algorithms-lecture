@@ -29,16 +29,21 @@ class Recorder(object):
         self.record[F.__name__]['sec'].append(end-s)
         self.record[F.__name__]['nano'].append(end_n - s_n)
 
-    # getter
-    def get_times(self):
-        return self.record
-
     # add function info to member dictionary containing execution times
     def initialize_F_info(self, F):
         fun_name = F.__name__
 
         if fun_name not in self.record.keys():
             self.record[fun_name] = {'nano': [], 'sec': []}
+
+    # getter
+    def get_record(self):
+        return self.record
+
+    def get_record_df(self):
+        df = pd.DataFrame.from_dict(self.record, orient='index')
+        return df
+
 
 """
 
@@ -50,7 +55,7 @@ if __name__ == '__main__':
     recorder = Recorder()
     args = [0, len(a)-1]
     recorder.execute(quick_sort, a, *args)
-    record = recorder.get_times()
+    record = recorder.get_record()
 
     print(record)
     df = pd.DataFrame.from_dict(record, orient='index')
