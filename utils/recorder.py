@@ -29,22 +29,19 @@ class Recorder(object):
                 new_arg.append(i)
 
         s = time()
-        s_n = time_ns()
 
         F(*new_arg, **kwargs)
 
         end = time()
-        end_n = time_ns()
 
         self.record[F.__name__]['sec'].append(end-s)
-        self.record[F.__name__]['nano'].append(end_n - s_n)
 
     # add function info to member dictionary containing execution times
     def initialize_F_info(self, F):
         fun_name = F.__name__
 
         if fun_name not in self.record.keys():
-            self.record[fun_name] = {'nano': [], 'sec': []}
+            self.record[fun_name] = {'sec': []}
 
     # getter
     def get_record(self):

@@ -9,7 +9,7 @@
     for 2), we don't need to sort them because they are already sorted.
 
 """
-from shuffle import shuffle
+from utils.shuffle import shuffle
 
 num_iter = 0
 

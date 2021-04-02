@@ -25,7 +25,6 @@ def partition(l, p, r):
     global num_iter
     pivot = l[p]
     i = p+1
-    print(l, end=' ')
     for j in range(i, r+1):
         num_iter += 1
         if l[j] < pivot:
@@ -33,7 +32,6 @@ def partition(l, p, r):
             i += 1
 
     l[i-1], l[p] = l[p], l[i-1]
-    print(f'pivot: {pivot}')
     return i-1 # return pivot's index
 
 
