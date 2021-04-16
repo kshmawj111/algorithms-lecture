@@ -8,11 +8,11 @@ def iterative_merge(A, left, mid, right):
 
     L = A[left:left+n1] + [float('inf')] # index overflow를 방지하며 더 이상 해당 배열의 인덱스를 움직이지 않게 해주는 일종의 트릭
     R = A[mid+1:mid+1+n2] + [float('inf')]
-    i, j = 0, 0
+    i, j = 0, 0     # L, R list index
 
     global num_iter
     # 비교 하면서 원본 배열에 바로 값을 집어 넣음
-    for k in range(left, left+N):
+    for k in range(left, left+N): # k for origina list index
         num_iter += 1
         if L[i] <= R[j]:
             A[k] = L[i]

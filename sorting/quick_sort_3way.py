@@ -36,15 +36,17 @@ def quick_select(l, p, r, k):
 
 def quick_sort_3way(l, p, r, verbose=False):
     if p<r:
-        lp, rp = partition(l, p, r, verbose=verbose)
-        quick_sort_3way(l, p, lp - 1) # left
-        quick_sort_3way(l, rp + 1, r) # right
+        lp, rp = partition(l, p, r, verbose)
+        quick_sort_3way(l, p, lp - 1, verbose) # left
+        quick_sort_3way(l, rp + 1, r, verbose) # right
     return l
 
 
 def partition(l, p, r, verbose=False):
     global num_iter
-    pivot = l[randint(p, r)] # randomized pivots
+    pi = randint(p, r)
+    pivot = l[pi]
+    l[pi], l[p] = l[p], l[pi]
     lp, rp = p, r
     i = p
 
@@ -62,20 +64,15 @@ def partition(l, p, r, verbose=False):
             l[rp], l[i] =l[i], l[rp]
             rp -= 1
 
-    if verbose:
-        print(l, end=' ')
-        print(f'lp: {lp}, rp: {rp}', end=' ')
-        print(f'pivot: {pivot}')
+        if verbose:
+            print(l, end=' ')
+            print(f'i: {i}, lp: {lp}, rp: {rp}', end=' ')
+            print(f'pivot: {pivot}')
 
     return lp, rp # return pivot's index
 
 
 if __name__ == '__main__':
-    iterations = []
-
-    for _ in range(100):
-        a = [randint(0, 5) for _ in range(1000)]
-        quick_sort_3way(a, 0, len(a) - 1, verbose=False)
-        iterations.append(num_iter)
-
-    print(sum(iterations)/len(iterations))
+    a = [1,3,2,3,4,3,5]
+    quick_sort_3way(a, 0, len(a)-1, verbose=True)
+    print(a)

@@ -1,4 +1,5 @@
-from copy import copy
+import time
+from copy import copy, deepcopy
 from random import randint
 
 num_iter = 0
@@ -45,3 +46,17 @@ if __name__ == '__main__':
     a = [3,2,1,5,8,4,7,6]
     quick_sort(a, 0, len(a)-1)
     print(a)
+
+    a = [randint(0, 1000) for x in range(1000)]
+    b = deepcopy(a)
+    s = time.time()
+    quick_sort(a, 0, len(a) - 1)
+    print(time.time()-s)
+    print(a)
+
+    s = time.time()
+    quick_sort(a, 0, len(a) - 1)
+    print(time.time()-s)
+    print(a)
+
+
