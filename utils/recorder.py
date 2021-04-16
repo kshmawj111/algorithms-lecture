@@ -30,7 +30,7 @@ class Recorder(object):
 
         s = time()
 
-        F(*new_arg, **kwargs)
+        F(*new_arg, **kwargs) # pass given args to the Function given
 
         end = time()
 
@@ -47,6 +47,7 @@ class Recorder(object):
     def get_record(self):
         return self.record
 
+    # return as df
     def get_record_df(self):
         df = pd.DataFrame.from_dict(self.record, orient='index')
         return df

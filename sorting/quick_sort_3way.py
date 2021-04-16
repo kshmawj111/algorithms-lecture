@@ -9,7 +9,9 @@
     for 2), we don't need to sort them because they are already sorted.
 
 """
-from utils.shuffle import shuffle
+import math
+from copy import copy
+from random import randint
 
 num_iter = 0
 
@@ -32,17 +34,17 @@ def quick_select(l, p, r, k):
     return answer
 
 
-def quick_sort_3way(l, p, r):
+def quick_sort_3way(l, p, r, verbose=False):
     if p<r:
-        lp, rp = partition(l, p, r)
-        quick_sort_3way(l, p, lp - 1)
-        quick_sort_3way(l, rp + 1, r)
+        lp, rp = partition(l, p, r, verbose=verbose)
+        quick_sort_3way(l, p, lp - 1) # left
+        quick_sort_3way(l, rp + 1, r) # right
     return l
 
 
 def partition(l, p, r, verbose=False):
     global num_iter
-    pivot = l[(p+r)//2]
+    pivot = l[randint(p, r)] # randomized pivots
     lp, rp = p, r
     i = p
 
@@ -64,14 +66,16 @@ def partition(l, p, r, verbose=False):
         print(l, end=' ')
         print(f'lp: {lp}, rp: {rp}', end=' ')
         print(f'pivot: {pivot}')
+
     return lp, rp # return pivot's index
 
 
 if __name__ == '__main__':
-    a = [5,8,4,6,2,3,1,1,2,5,6,8,6,4,5,8,9,6,2,1,3,2,5,6,2,3,4,5,4,6,4]
-    print(quick_sort_3way(a, 0, len(a) - 1))
-    print(num_iter)
+    iterations = []
 
-    a = [3,2,1,2,5,3,65,3,5,4,203,2,12,12,2,33,52,53,2,5,23,6,523,]
-    a = shuffle(a)
-    print(quick_select(a, 0, len(a) - 1,14))
+    for _ in range(100):
+        a = [randint(0, 5) for _ in range(1000)]
+        quick_sort_3way(a, 0, len(a) - 1, verbose=False)
+        iterations.append(num_iter)
+
+    print(sum(iterations)/len(iterations))

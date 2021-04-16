@@ -1,3 +1,4 @@
+num_iter = 0
 
 
 def merge(left: list, right: list):

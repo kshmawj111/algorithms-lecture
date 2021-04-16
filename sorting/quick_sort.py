@@ -1,3 +1,6 @@
+from copy import copy
+from random import randint
+
 num_iter = 0
 
 def quick_select(l, p, r, k):
@@ -23,7 +26,10 @@ def quick_sort(l, p, r):
 
 def partition(l, p, r):
     global num_iter
-    pivot = l[p]
+    pi = randint(p, r)
+    pivot = l[pi]
+    l[pi], l[p] = l[p], l[pi]
+
     i = p+1
     for j in range(i, r+1):
         num_iter += 1
@@ -36,9 +42,6 @@ def partition(l, p, r):
 
 
 if __name__ == '__main__':
-    a = [5,8,4,6,2,3,1,1,2,5,6,8,6,4,5,8,9,6,2,1,3,2,5,6,2,3,4,5,4,6,4]
-    # print(quick_sort(a, 0, len(a)-1))
-    print(num_iter)
-
-    a = [3,2,5,4,1,6]
-    print(quick_select(a, 0, len(a)-1, 2))
+    a = [3,2,1,5,8,4,7,6]
+    quick_sort(a, 0, len(a)-1)
+    print(a)
