@@ -27,10 +27,10 @@ def merge(left: list, right: list):
 
 def merge_sort(ary, left, right):
     if left < right:
-        mid = (left + right) // 2
+        mid = (left + right) // 2   # divide
         l = merge_sort(ary, left, mid)
         r = merge_sort(ary, mid+1, right)
-        return merge(l, r)
+        return merge(l, r) # conquer
 
     else:
         return [ary[left]]
